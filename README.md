@@ -43,7 +43,8 @@ Usability test Round 2 is in progress (see `docs/USABILITY_TEST.md`).
 ## Prototype
 
 High-fidelity clickable prototype (23 screens + Admin A1–A8, Wasl branding, real maps):
-https://muse.ai/s/store-delivery-app-high-fidelity-zd6xfxpxqnw77xx/isJE--6RAkmjNnmOjxEJol54zKMI9J7EgVFAH_2CTa8
+https://benyahya7.github.io/wasl/
+(Mirror: https://muse.ai/s/store-delivery-app-high-fidelity-zd6xfxpxqnw77xx/isJE--6RAkmjNnmOjxEJol54zKMI9J7EgVFAH_2CTa8)
 
 ## Stack (planned, not built)
 
