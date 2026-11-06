@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Wasl mark, for dark backgrounds">
+  <path d="M56 84 L90 164 L120 104 L150 164 L184 84" fill="none" stroke="#FFFFFF" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="56" cy="84" r="10" fill="#FFFFFF"/>
+  <circle cx="184" cy="84" r="15" fill="#F2A81D" stroke="#093A3D" stroke-width="5"/>
+</svg>

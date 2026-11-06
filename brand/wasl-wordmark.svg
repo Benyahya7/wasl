@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 240" role="img" aria-label="Wasl wordmark">
+  <rect x="8" y="8" width="224" height="224" rx="56" fill="#0C4A4E"/>
+  <path d="M56 84 L90 164 L120 104 L150 164 L184 84" fill="none" stroke="#F2A81D" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="56" cy="84" r="10" fill="#FFFFFF"/>
+  <circle cx="184" cy="84" r="15" fill="#F2A81D" stroke="#0C4A4E" stroke-width="5"/>
+  <text x="268" y="132" font-family="Sora, 'DM Sans', sans-serif" font-size="92" font-weight="700" fill="#0C4A4E">Wasl</text>
+  <text x="270" y="192" font-family="'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif" font-size="46" font-weight="600" fill="#F2A81D">وصل</text>
+</svg>
