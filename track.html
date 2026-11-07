@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wasl — Track your delivery</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --teal:#0C4A4E; --amber:#F2A81D; --ink:#10201F; --paper:#F7F5F0; --blue:#2E6FB7; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'DM Sans',system-ui,sans-serif; background:var(--paper); color:var(--ink); }
+  header { background:var(--teal); color:#fff; padding:18px 20px; }
+  header h1 { font-family:'Sora',sans-serif; margin:0; font-size:22px; }
+  header h1 span { color:var(--amber); }
+  header p { margin:4px 0 0; opacity:.85; font-size:14px; }
+  main { max-width:640px; margin:0 auto; padding:20px 16px 48px; }
+  .card { background:#fff; border-radius:14px; padding:18px; margin-bottom:14px; box-shadow:0 1px 4px rgba(16,32,31,.08); }
+  .status { font-family:'Sora',sans-serif; font-size:24px; font-weight:700; margin:0 0 4px; }
+  .muted { color:#5a6b68; font-size:14px; }
+  .row { display:flex; justify-content:space-between; gap:12px; padding:6px 0; border-top:1px solid #eee; }
+  .row:first-of-type { border-top:0; }
+  .row b { font-weight:700; }
+  .steps { list-style:none; margin:0; padding:0; }
+  .steps li { padding:10px 0 10px 34px; position:relative; color:#8a9a97; }
+  .steps li::before { content:""; position:absolute; left:6px; top:14px; width:12px; height:12px; border-radius:50%; background:#cfd8d5; }
+  .steps li::after { content:""; position:absolute; left:11px; top:30px; bottom:-6px; width:2px; background:#e3e8e6; }
+  .steps li:last-child::after { display:none; }
+  .steps li.done { color:var(--ink); font-weight:700; }
+  .steps li.done::before { background:var(--teal); }
+  .steps li.now { color:var(--ink); font-weight:700; }
+  .steps li.now::before { background:var(--amber); box-shadow:0 0 0 4px rgba(242,168,29,.25); }
+  #map { height:280px; border-radius:14px; z-index:0; }
+  .photo { width:100%; border-radius:14px; display:block; }
+  .error { background:#fff; border-left:5px solid var(--amber); border-radius:14px; padding:18px; }
+  .small { font-size:12px; color:#8a9a97; text-align:center; margin-top:18px; }
+  .pill { display:inline-block; background:rgba(242,168,29,.18); color:#7a5200; border-radius:999px; padding:4px 12px; font-size:13px; font-weight:700; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Wasl <span>وصل</span></h1>
+  <p>Track your delivery — no app needed.</p>
+</header>
+<main id="app">
+  <div class="card"><p class="muted">Loading your delivery…</p></div>
+</main>
+<p class="small">Wasl — the store, the driver and you see the same status at the same moment.</p>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const PROJECT = 'wasl-delivery-app';
+const params = new URLSearchParams(location.search);
+const deliveryId = params.get('d') || '';
+const token = params.get('t') || '';
+const app = document.getElementById('app');
+
+const STATUS_LABEL = { offered:'Waiting for a driver', assigned:'Waiting for a driver', accepted:'Accepted', pickedUp:'Picked up', delivering:'On the way', delivered:'Delivered', cancelled:'Cancelled' };
+const STEPS = ['accepted','pickedUp','delivering','delivered'];
+const STEP_LABEL = { accepted:'Accepted', pickedUp:'Picked up', delivering:'On the way', delivered:'Delivered' };
+
+function fv(f, name) { const v = (f && f[name]) || null; if (!v) return null; return v.stringValue ?? v.doubleValue ?? v.integerValue ?? v.timestampValue ?? null; }
+
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function showError(msg) {
+  app.innerHTML = '<div class="error"><b>Couldn\'t open this delivery.</b><p class="muted">' + esc(msg) + '</p></div>';
+}
+
+let map = null;
+async function load() {
+  if (!deliveryId || !token) { showError('This link is incomplete — ask the store to send the tracking link again.'); return; }
+  const url = 'https://firestore.googleapis.com/v1/projects/' + PROJECT + '/databases/(default)/documents/deliveries/' + encodeURIComponent(deliveryId) + '/tracking/' + encodeURIComponent(token);
+  let res;
+  try { res = await fetch(url); } catch (e) { showError('Couldn\'t reach Wasl — check your connection and try again.'); return; }
+  if (!res.ok) { showError(res.status === 404 ? 'This tracking link is no longer valid — ask the store for a new one.' : 'Wasl answered with an error (' + res.status + '). Try again in a minute.'); return; }
+  const doc = await res.json();
+  const f = doc.fields || {};
+  const status = fv(f, 'status') || 'offered';
+  const storeName = fv(f, 'storeName') || 'Your store';
+  const driverName = fv(f, 'driverName');
+  const items = fv(f, 'items') || '';
+  const total = fv(f, 'orderTotal');
+  const currency = fv(f, 'currency') || 'USD';
+  const area = fv(f, 'customerArea') || '';
+  const lat = fv(f, 'customerLat');
+  const lng = fv(f, 'customerLng');
+  const photoUrl = fv(f, 'photoUrl');
+  const deliveredAt = fv(f, 'deliveredAt');
+
+  const stepIndex = STEPS.indexOf(status);
+  const stepsHtml = STEPS.map((s, i) => {
+    const cls = status === 'cancelled' ? '' : (i < stepIndex ? 'done' : (i === stepIndex ? 'now' : ''));
+    return '<li class="' + cls + '">' + STEP_LABEL[s] + '</li>';
+  }).join('');
+
+  let html = '<div class="card">';
+  html += '<p class="muted" style="margin:0 0 4px">' + esc(storeName) + '</p>';
+  html += '<p class="status">' + esc(STATUS_LABEL[status] || status) + '</p>';
+  if (status === 'delivered') html += '<span class="pill">Delivered' + (deliveredAt ? ' — ' + esc(new Date(deliveredAt).toLocaleString()) : '') + '</span>';
+  else if (driverName) html += '<p class="muted">Your driver: ' + esc(driverName) + '</p>';
+  html += '</div>';
+
+  html += '<div class="card"><ul class="steps">' + stepsHtml + '</ul></div>';
+
+  html += '<div class="card">';
+  if (items) html += '<div class="row"><span>Items</span><b>' + esc(items) + '</b></div>';
+  if (total !== null && total !== undefined) html += '<div class="row"><span>Total</span><b>' + esc(currency) + ' ' + esc(Number(total).toFixed(2)) + '</b></div>';
+  if (area) html += '<div class="row"><span>Deliver to</span><b>' + esc(area) + '</b></div>';
+  html += '</div>';
+
+  if (lat !== null && lat !== undefined && lng !== null && lng !== undefined) {
+    html += '<div id="map"></div>';
+  }
+  if (status === 'delivered' && photoUrl) {
+    html += '<div class="card"><p style="margin:0 0 10px"><b>Delivery photo</b></p><img class="photo" src="' + esc(photoUrl) + '" alt="Delivery photo"></div>';
+  }
+  html += '<p class="small">Updated just now — this page refreshes itself every 30 seconds.</p>';
+  app.innerHTML = html;
+
+  if (lat !== null && lat !== undefined && lng !== null && lng !== undefined) {
+    if (map) { map.remove(); map = null; }
+    map = L.map('map').setView([Number(lat), Number(lng)], 15);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+    L.marker([Number(lat), Number(lng)]).addTo(map).bindPopup('Deliver here').openPopup();
+  }
+}
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>
