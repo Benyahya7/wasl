@@ -99,6 +99,7 @@ One app for both driver types. Assigned jobs are pinned at the top; open offers 
 ### 2.3 Active job (D4) — single delivery
 - Big status button, one thumb: Picked up → On the way → Delivered
 - **Pickup needs the 4-character pickup code from the order label (decided 2026-11-06):** the driver types the code to confirm pickup — no code, no pickup. The code is NEVER shown on the driver's screens before he has the bag; he can only get it from the physical label at the store. Wrong code → pickup rejected, stays Accepted.
+- **Start delivering guides him to the map (decided 2026-11-06):** tapping Start delivering (On the way) opens D10 Navigate with the route (store → customer) drawn — the driver never has to hunt for the map. Same per stop on D7.
 - Navigate, Chat (D8), customer notes
 - Delivered step: photo proof (+ retake), then next job / earnings update
 - Problem path: customer not answering / wrong address / order not ready [F5 fix, to add — mirror D7]
@@ -123,8 +124,8 @@ One app for both driver types. Assigned jobs are pinned at the top; open offers 
 - Ratings from stores, favourite stores, settings, shift on/off
 
 ### 2.8 Navigate (D10, new in high-fi)
-- Real interactive map: driver position, route to the store for pickup, then route to the customer
-- Next-turn card, route steps, live ETA and distance, one-tap "Directions in Google Maps" handoff
+- Real interactive map: driver position, route to the store for pickup, then route to the customer — Mapbox in the real app (decided 2026-11-06)
+- Next-turn card, route steps, live ETA and distance — and the driver's choice: navigate inside Wasl on the Mapbox map, or one-tap "Directions in Google Maps" to open the trip in his Google Maps app (free)
 - Same pattern on each stop of a run (D7) and on the active job (D4) and assignment preview (D3)
 
 ## 3. Customer — tracking link needs no account; a profile is optional

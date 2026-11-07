@@ -55,10 +55,17 @@ These jobs need a small server function, not just the app:
 ### Shared services (outside Firebase)
 | Service | For | When |
 |---|---|---|
-| Google Maps (Directions, Distance, geocoding) | Route optimisation on Build a Run, ETA, driver navigation, distance-based fee | Real launch — needs an API key + billing |
+| Mapbox | In-app map, routing, ETA, distance-based fee — the map inside Wasl | Pilot: free tier (50,000 map loads + 100,000 directions/month, no card to start) — needs a free token |
+| Google Maps (app handoff, not the API) | Turn-by-turn navigation — driver taps "Directions in Google Maps" and the Google Maps app on his phone takes over | Free — no key, no billing. Google Maps Platform APIs are NOT used in the pilot; Mapbox covers routes and geocoding |
 | Stripe (DEFERRED — cash only at the start, decided 2026-11-06) | In-app payment / payouts, later only | Not in MVP. The backend records cash instead: `payouts` holds cash collected, cash returned to the store, cash owed, and "paid in cash" marks — no money moves through the app at launch. Cash-flow rule (decided 2026-11-06): driver returns ALL cash to the store, gets paid later, keeps any tip. |
 | FCM push notifications | Assignment, decline, delivered | With Cloud Functions (Blaze) |
 | Resend (already set up) | Order / delivery emails | Anytime — email only, not SMS |
+### Maps — Mapbox in the app, Google Maps for turn-by-turn (decided 2026-11-06)
+- **Mapbox is the map inside Wasl:** the in-app map, the route, ETA and distance on D10/D2/S10/C1, and route optimisation on Build a Run. Free tier: 50,000 map loads + 100,000 directions requests a month, no credit card to start — the pilot (3–5 stores, ~10 drivers) stays inside it, so $0. After the free tier: $5 per 1,000 map loads, $2 per 1,000 directions.
+- **Google Maps does the turn-by-turn:** the driver taps "Directions in Google Maps" and the Google Maps app on his phone navigates — free, no key, no billing, and drivers already know it. Google's own in-app Navigation SDK is NOT used (Enterprise tier, only 1,000 free uses a month).
+- **The driver always has the choice (decided 2026-11-06):** on D10 he can navigate inside Wasl on the Mapbox map, or open the trip in his Google Maps app — his choice, both free in the pilot.
+- **Both free for the pilot.** The prototype keeps its free open map tiles for now — Mapbox goes into the real app build; the prototype can switch to a Mapbox token later if needed.
+
 | SMS provider (to decide — Twilio or similar) | Tracking link by text to the customer | Real launch — Resend does not do SMS |
 
 ### Admin — approvals, payments, revenue (added 2026-11-06, from ADMIN_STUDY.md)
