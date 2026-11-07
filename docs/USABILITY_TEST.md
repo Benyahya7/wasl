@@ -125,6 +125,7 @@ Method: Google UX Design Certificate — Test phase, following `UX_STUDY.md` §7
 - **Real maps added:** S10 store live map, D10 driver navigation, D2 job map, live map on S5 and C1. **Round 2 must verify the map tiles actually draw on a real phone** — the builders could not confirm this.
 - **Admin added:** A1–A8 web surface (approvals, payment switches, revenue, live map of all deliveries, markets).
 - **Still open in the prototype:** F4 (no saved customers on S2), F5 (no problem path on a single delivery D4), F6 (batch pay breakdown on D6 — pricing rule undecided, do NOT invent it in the test). Note them if participants hit them; do not treat them as new findings.
+- **Pickup confirmation code (decided 2026-11-06) — NOT in the prototype yet:** D4 needs a code-entry step (and per-stop on D7), and the store side needs the code on the order. Task 3 currently tests the big-button pickup. Add the code step before the driver test (P3) runs, so Task 3 tests it for real.
 
 ## Participants
 - **P1 — Soufiane** (store owner + admin): runs store Tasks 1, 2, 5, 6 and all 5 Admin tasks. First session, running now.

@@ -45,6 +45,7 @@ Competitors to learn from: Metrobi, DoorDash Drive / Uber Direct, Circuit, GoSha
 ## Must-have for MVP
 - Store: create delivery in <1 min, assign or broadcast, live tracking, chat with driver, delivery history, cash ledger (cash collected / returned / owed, "Mark as paid in cash")
 - Driver: job list + map, accept / decline, navigation, pickup / delivered buttons, photo proof, earnings
+- Pickup confirmation code (decided 2026-11-06): every order gets a 4-character mixed letter+number code on the order label; the driver enters it to confirm pickup — no code, no pickup, so nobody can take the wrong order or steal one. The code is never shown to the driver in the app before pickup.
 - Both: profiles + verification, ratings both ways, notifications, cash recording (no in-app payment in the MVP — decided 2026-11-06, Stripe deferred)
 - Admin basics: stores, drivers, zones (start: East Boston in Boston + a Morocco zone to decide)
 

@@ -44,6 +44,7 @@ Home is the Dashboard. Bottom nav (phone): **Home / New delivery / My Drivers / 
 ### 1.5 Live status (S5)
 - One order: timeline Accepted → Picked up → On the way → Delivered
 - Driver name, live map position, ETA, fee
+- Pickup code shown on the order (store side only — the store puts it on the label and can read it out if the label is unreadable; it never appears on the driver's screens before pickup)
 - Buttons: Chat (S8), Call (masked, later), Problem / support
 - Delivered state: photo + time
 
@@ -97,13 +98,14 @@ One app for both driver types. Assigned jobs are pinned at the top; open offers 
 
 ### 2.3 Active job (D4) — single delivery
 - Big status button, one thumb: Picked up → On the way → Delivered
+- **Pickup needs the 4-character pickup code from the order label (decided 2026-11-06):** the driver types the code to confirm pickup — no code, no pickup. The code is NEVER shown on the driver's screens before he has the bag; he can only get it from the physical label at the store. Wrong code → pickup rejected, stays Accepted.
 - Navigate, Chat (D8), customer notes
 - Delivered step: photo proof (+ retake), then next job / earnings update
 - Problem path: customer not answering / wrong address / order not ready [F5 fix, to add — mirror D7]
 
 ### 2.4 Batched offer (D6) and Active multi-stop run (D7)
 - D6: total pay, miles, time, all sequenced stops before accepting. Whole-batch-only rule stated clearly.
-- D7: big button advances stop by stop, photo at each stop, problem-at-stop path, batch progress ("Stop 2 of 3")
+- D7: big button advances stop by stop, photo at each stop, problem-at-stop path, batch progress ("Stop 2 of 3") — pickup code per stop, one code per order, entered at each pickup
 
 ### 2.5 Earnings (D5)
 - Per-trip pay, today's total, weekly total
