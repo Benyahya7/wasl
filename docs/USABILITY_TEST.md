@@ -123,6 +123,7 @@ Method: Google UX Design Certificate — Test phase, following `UX_STUDY.md` §7
 - **F3 fixed:** chat screens S8 (store) and D8 (driver) — same per-order thread mirrored. Test it inside Task 2 or 5.
 - **Profiles added:** S9 store, D9 driver, C3 customer (optional).
 - **Real maps added:** S10 store live map, D10 driver navigation, D2 job map, live map on S5 and C1. **Round 2 must verify the map tiles actually draw on a real phone** — the builders could not confirm this.
+- **P1 confirmed 2026-11-06 ~22:14 EST: S6 (History & pay) and S10 (store live map) are good** — S10 map tiles draw on his phone. D10 confirmed earlier the same evening; A6 still unconfirmed.
 - **Admin added:** A1–A8 web surface (approvals, payment switches, revenue, live map of all deliveries, markets).
 - **Still open in the prototype:** F4 (no saved customers on S2), F5 (no problem path on a single delivery D4), F6 (batch pay breakdown on D6 — pricing rule undecided, do NOT invent it in the test). Note them if participants hit them; do not treat them as new findings.
 - **Pickup confirmation code (decided 2026-11-06) — IN the prototype since 2026-11-06 ~21:04 EST:** D4 has the code-entry step (right code advances, wrong code rejected), per-stop on D7, and the store side shows the code on the order (#1044 K7M2). Task 3 now tests the code step for real. Note: the public link and GitHub Pages still serve the previous version without the code step — they update only on a re-share / re-export.

@@ -58,6 +58,7 @@ Competitors to learn from: Metrobi, DoorDash Drive / Uber Direct, Circuit, GoSha
 
 ## Business model — to test in the study
 **Decided 2026-11-06: cash only at the start. No in-app payment in the MVP — most small stores pay their drivers cash, and the app will be used in Morocco as well as in Boston, so cash is fine.** The app records cash instead of moving it: who collected what, who is owed what. Cash-flow rule (decided 2026-11-06): the driver returns all the cash to the store, gets paid later, and keeps any tip. Stripe / in-app payment is deferred to later.
+**Payment when ordering from the app (decided 2026-11-06):** if the customer orders from the app, they can pay cash or pay through the app — both options, their choice. V1 delivery stays cash at the door. **Payment is unified in the area:** the same payment options for every store in an area, set by the admin at the market level.
 - Store pays BOTH: a per-delivery fee AND a monthly plan (decided 2026-11-06), both set by the admin per store. Amounts still to test (Boston $4–$7 per delivery, Morocco MAD fee, monthly plan price).
 - Driver keeps most of the fee, app keeps a small cut
 - Question for stores: what per-delivery fee and monthly price would you pay to never lose a delivery? (The model is decided — BOTH — only the amounts are still to test.)
@@ -65,7 +66,7 @@ Competitors to learn from: Metrobi, DoorDash Drive / Uber Direct, Circuit, GoSha
 ## Biggest risks to check in the study
 1. Will a store trust outside drivers with their food / reputation?
 2. What happens when no driver accepts? Need a backup / guaranteed driver pool.
-3. Who pays if food is late / cold / lost? Store, driver, or app?
+3. Who pays if food is late / cold / lost? **Late (decided 2026-11-06): the restaurant and the driver share the responsibility.** Cold / lost and the exact split of the late cost are still open. **Unpaid (decided 2026-11-06): if the customer didn't pay, the driver returns the order to the store.**
 4. Can we get 3-5 stores + 10 drivers in one small area to start? Without density it fails.
 5. How is this cheaper / better for a store than DoorDash Drive?
 
