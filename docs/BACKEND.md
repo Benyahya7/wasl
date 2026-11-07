@@ -21,7 +21,9 @@ That is why the store, the driver and the customer all see the same status words
 | `users` | Every account: role (store / own-driver / marketplace-driver / admin), name, phone, photo, language, `verificationStatus` (pending / approved / rejected + `verificationReason` + `submittedByStore` when a store submits its own driver) | Own profile only; admin reads all; pending accounts cannot post orders or see jobs |
 | `stores` | Business name, address, contact, `market`, zone, `paymentMethods` (cash on by default, card off by default — card needs a payout account + fee agreement; never both off), fee settings (per-delivery fee + monthly plan, both set by the admin), favourite / blocked drivers, payout account | That store only; drivers read name + address of stores they serve; payment switches are admin-only writes |
 | `drivers` | Vehicle, ID verification status, rating, on/off now, home zone, payout account | That driver only; stores read rating + distance of drivers on their orders |
-| `deliveries` | **The core.** Customer name/phone/address, items/order #, pickup time, fee, notes, driver mode (my-driver / marketplace / auto), status, driver, timestamps, photo proof | Store that created it + assigned driver + admin. Customer reads only their own order via the tracking link (token, no login) |
+| `deliveries` | **The core of v1.** Customer name/phone/address, items/order #, pickup time, fee, notes, driver mode (my-driver / marketplace / auto), status, driver, timestamps, photo proof. In v1 the store creates it directly; in v2 it is created from an `orders` doc (see "Orders vs deliveries" below) | Store that created it + assigned driver + admin. Customer reads only their own order via the tracking link (token, no login) |
+| `orders` | **v2 — the order, separate from the delivery.** What the customer bought: items + options, order total, customer, source (manual store entry / store app / Wasl storefront), status (received → confirmed → preparing → ready → out for delivery), linked `deliveryId` once a delivery is created | Store that owns it + admin. The store app that sent it can read its own orders. A delivery is created from an order, never the other way round |
+| `menus` | **v2 — per-store menu for the Wasl storefront.** Items (name, price, options, sold-out flag) owned by a store | That store writes; public read of a store's own menu; admin reads all |
 | `runs` | Batched runs: list of delivery IDs, sequenced stops, total pay, miles, status, driver | Same as deliveries — store + assigned driver + admin |
 | `chats` / `deliveries/{id}/messages` | One thread per order: store ↔ driver, text + quick replies + photo in-thread | Only the store and driver on that order. Thread closes after delivery. No phone numbers stored or shown |
 | `ratings` | Store → driver and driver → store, per delivery | Both sides read their own; admin reads all |
@@ -66,15 +68,24 @@ These jobs need a small server function, not just the app:
 - **Markets (global by design):** `markets` — one doc per market (currency, language, zones, per-delivery fee, monthly plan). Boston + Morocco are the first two; the admin adds more. `zones` belong to a market; `stores.market` points at their market.
 - **Rules:** admin-only writes on approvals, payment switches, fees and markets. Admin reads all; a store reads only its own payment and revenue records; a driver reads only their own.
 
+### Orders vs deliveries — the split (decided 2026-11-06: v2, after the delivery system is built and tested)
+An **order** is what the customer buys; a **delivery** is the trip that carries it. They are two different docs, on purpose — so ordering can be added later without rebuilding the delivery core.
+- **v1 (now):** the store creates a `deliveries` doc directly (typed in by hand, e.g. a phone order). There is no `orders` doc yet. This stays as the manual fallback even in v2.
+- **v2, part A — intake from the store's own apps:** orders placed in Mira's Coffee / Chinese Dragon apps (Mini App or bot) flow into Wasl instead of being re-typed. Each store app sends its order to one intake endpoint (a Cloud Function, Blaze) in one agreed format, with a per-store secret: store, items + options, order total, customer name/phone/address, pickup/delivery, time. Wasl validates it, writes `orders/{id}`, the store confirms it, and a `deliveries` doc is created from it. The store's apps need a small change to also send the order to Wasl — today they send orders to Telegram only.
+- **v2, part B — storefront inside Wasl:** the customer browses a store's `menus` in Wasl, picks items, orders. The order lands as an `orders` doc and follows the same path: store confirms → delivery created. New customer screens (C4+) in the IA.
+- **Cash with orders:** the driver collects the **order total** at the door (cash on delivery), not just a delivery fee. The ledger in `payouts` splits it: order total to the store, delivery fee / driver pay, tip kept by the driver. The v1 cash rule still holds — driver returns ALL cash to the store, gets paid later, keeps any tip.
+- **Order states:** received → confirmed (store) → preparing → ready → out for delivery (delivery created) → delivered + photo. The customer tracking link follows the delivery; the order status is shown on the same page.
+
 ## How the key flows run on this backend
 - **Assign to my driver:** store writes `deliveries/{id}` with `driverMode: my-driver, driverId: karim, status: offered`. Karim's app gets a push + sees it on D3. Accept → `status: accepted`. Decline + reason → function (or app, on Spark) writes `status: escalated` and broadcasts to marketplace.
+- **Order → delivery (v2):** an `orders` doc arrives (intake from a store app, or the Wasl storefront). Store confirms it on S1 → a `deliveries` doc is created from the order (customer, address, items/order #, order total), linked by `deliveryId` on the order. From there the flow above runs unchanged — assign / broadcast / accept / pickup / delivered + photo. A manual store-created delivery skips the order step entirely.
 - **Broadcast / Auto:** store writes `driverMode: marketplace` (or Auto with a deadline). The delivery appears on the open board (D1/D2) for nearby drivers. First accept wins — the accept is a server transaction, so two drivers cannot take the same order.
 - **Multi-stop run:** store writes a `runs` doc with 3 delivery IDs in optimised order. Driver accepts the run (whole batch only), D7 advances stop by stop, each stop writes its delivery's status + photo.
 - **Chat:** messages go to `deliveries/{id}/messages`. Both phones listen to the same collection, so S8 and D8 are the same thread mirrored.
 - **Pay (cash only at launch):** the driver returns all cash to the store, gets paid later, keeps any tip. The app records it in `payouts` — cash collected / returned / owed, and "Mark as paid in cash". Driver sees pay owed + tips kept on D5; store sees the cash ledger on S6. No money moves through the app at launch; Stripe is deferred.
 
 ## What the backend does NOT do
-- No inventory, menus or ordering — that lives in the Mira's / Chinese Dragon bots for now.
+- No ordering in v1 — that lives in the Mira's / Chinese Dragon bots for now. Customer ordering is **v2, decided 2026-11-06**: after the delivery system is built and tested. The `orders` / `menus` collections and the intake above are designed now so v2 plugs in without rebuilding the delivery core.
 - No rides for people — parcels / food / groceries only.
 - No driver background checks or insurance by itself — verification status is stored here, the check itself is an outside process.
 - No SMS by itself — needs an SMS provider (see above).
@@ -88,3 +99,4 @@ Supabase (Postgres, open source) or a Node.js + PostgreSQL + S3 backend would al
 3. Storage (photos) + Auth roles
 4. App reads/writes deliveries end to end (create → accept → delivered + photo)
 5. Then: escalation function, notifications, Maps — Blaze when the timer has to be reliable. Stripe test mode is deferred with in-app payment, not in the MVP.
+6. v2, only after the delivery system is built and tested: `orders` + `menus` collections, the order-intake function for store apps (Mira's / Dragon), and the Wasl storefront. No rebuild of the delivery core — an order just becomes a delivery.

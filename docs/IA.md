@@ -195,7 +195,7 @@ Admin (web)
 
 ## What is NOT in the IA (deliberately)
 - Rides for people — parcels / food / groceries only. The paused consumer marketplace covered rides.
-- Customer ordering / menus — that lives in the Mira's Coffee and Chinese Dragon bots for now; connecting it is "Could, later".
+- Customer ordering / menus — **not in v1; decided 2026-11-06 as v2, after the delivery system is built and tested.** v2 adds: (a) intake from the store's own apps (Mira's Coffee, Chinese Dragon) — their orders flow into Wasl as deliveries; (b) a storefront inside Wasl — customer browses products and orders (new customer screens, C4+). The backend split (orders vs deliveries) is designed now in BACKEND.md so v2 plugs in without rebuilding the delivery core.
 - Auto-dispatch by algorithm (best driver by distance + rating) — "Could, later". Auto today means own driver first, then broadcast.
 - Alcohol / tobacco delivery, insurance claims in-app.
 
