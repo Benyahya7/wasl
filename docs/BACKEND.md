@@ -1,5 +1,5 @@
 # Store Delivery App — Backend System
-Date: 2026-11-06 | Owner: Soufiane Benyahya | Status: Plan, not built yet
+Date: 2026-11-06 | Owner: Soufiane Benyahya | Status: Built 2026-11-06 ~22:46 EST — project `wasl-delivery-app`, Spark free, rules 14/14 live-tested, seed verified; 2 console steps pending (enable Google + phone sign-in, create Storage bucket) — see BACKEND_BUILD_LOG.md
 Companion files: `UX_STUDY.md`, `IA.md`, `USABILITY_TEST.md`, wireframes `store-delivery-app-wireframes`
 
 ## Short answer
