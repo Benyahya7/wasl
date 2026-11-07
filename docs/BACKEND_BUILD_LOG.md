@@ -62,10 +62,11 @@ These two steps could NOT be done via API on this VM; they need a few clicks in 
 - Why it is pending: the Identity Platform config does not exist yet for this project — the API returns `CONFIGURATION_NOT_FOUND`, and `initializeAuth` (the API way to create it) refuses with `BILLING_NOT_ENABLED` because it is the paid Identity Platform upgrade path. The console's Auth setup creates the free Spark config instead. Attempted and documented: `initializeAuth` (400 BILLING_NOT_ENABLED), IdP config create (400, needs clientId), Auth user create (400 CONFIGURATION_NOT_FOUND).
 - After this is done, tell me and I will verify Google sign-in works and re-key the admin doc (see admin note).
 
-### 2. Create the Storage default bucket — REQUIRED before delivery photos work
-- Open https://console.firebase.google.com/project/wasl-delivery-app/storage and click **Get Started** (accept the default location/rules prompt).
-- Why it is pending: the default bucket (`wasl-delivery-app.firebasestorage.app`) does not exist yet; the Firebase Storage API returned 404 for the create call, the raw Cloud Storage API refused with a billing error, and the CLI deploy refuses until the bucket exists ("Firebase Storage has not been set up").
-- After the bucket exists, run: `cd ~/workspace/store-delivery-app/firebase && npx firebase-tools deploy --only storage --project wasl-delivery-app` — `storage.rules` is already written.
+### 2. Create the Storage default bucket — BLOCKED, requires a plan upgrade (found 2026-11-06 ~23:14 EST)
+- The browser opened https://console.firebase.google.com/project/wasl-delivery-app/storage: there is NO "Get Started" button. The page says "To use Storage, upgrade your project's pricing plan" with only an "Upgrade project" button. The browser did NOT click it, did not link billing, did not change the plan. **The default bucket does not exist.**
+- So on this new project, Cloud Storage for Firebase requires the Blaze plan — the free Spark tier no longer includes a default bucket. (The earlier API 404s were the same wall, not a bug.)
+- **Consequence for the app build:** delivery photos cannot live in Firebase Storage unless the plan upgrades. Free alternatives (no card): Cloudinary free tier (25 GB) as the photo home, or small compressed photos stored in Firestore itself. Decision for the app build — default plan is Cloudinary free unless the user says otherwise.
+- **Step 1 outcome (same session):** Google sign-in ENABLED and verified in the console (toast + provider row "Enabled", support email raiss95@gmail.com). Phone provider NOT enabled (deferred — Blaze prompt). The user signed in to Google himself during a brief browser takeover; sign-in completed via the account's two-step prompt.
 
 ## Still pending — Blaze-gated (NOT built, NOT faked)
 Per BACKEND.md, these need the Blaze (pay-as-you-go) plan and are out of scope on Spark:
