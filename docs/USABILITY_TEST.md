@@ -164,7 +164,7 @@ Method: Google UX Design Certificate — Test phase, following `UX_STUDY.md` §7
 | Task | Success (yes / no / with help) | Time | Taps / errors | Their words (exact) | Fix |
 |---|---|---|---|---|---|
 | 1. Create + assign to own driver | | | | | |
-| 2. Decline → marketplace cover | yes | — (to confirm) | — | "When I assign to a drivers one was busy and the other he declined so I got back up from the market place" | — |
+| 2. Decline → marketplace cover | yes | — (to confirm) | — | "When I assign to a drivers one was busy and the other he declined so I got back up from the market place" / "Was easy but I was worried no one will pickup the delivery" | R2-1: easy to do, but the store owner worried no one would pick the delivery up — guaranteed-driver-pool question still open |
 | 3. (driver) Pickup → delivered + photo | | | | | |
 | 4. (marketplace) Find + accept $6+ / <3 mi | | | | | |
 | 5. Live status + customer view | | | | | |
@@ -174,7 +174,7 @@ Method: Google UX Design Certificate — Test phase, following `UX_STUDY.md` §7
 | C. Approve a store-submitted driver | | | | | |
 | D. Turn card on (guard check) | | | | | |
 | E. Settle a late-order dispute | | | | | |
-| Easy rating 1–5 per task: | | | | | |
+| Easy rating 1–5 per task: Task 2: easy (user's word, no number given) | | | | | |
 | Maps drew on the phone? D10 / S10 / A6: | | | | | |
 
 ### P2 — store owner (name: ___) — session: ___ / ___ / 2026, ___ min
@@ -198,6 +198,11 @@ Method: Google UX Design Certificate — Test phase, following `UX_STUDY.md` §7
 ## Session log
 | Session | Participant | Date | Tasks run | Result |
 |---|---|---|---|---|
-| 1 | P1 Soufiane | 2026-11-06 | Task 2 run — own drivers busy / declined → marketplace backup worked | partial — time + ease rating still to confirm |
+| 1 | P1 Soufiane | 2026-11-06 | Task 2 run — own drivers busy / declined → marketplace backup worked | partial — ease recorded ("easy"), time still to confirm |
 | 2 | P2 (to name) | — | — | not scheduled |
 | 3 | P3 (to name) | — | — | not scheduled |
+
+## Round 2 findings so far
+| # | Finding | Severity | Where | Fix / status |
+|---|---|---|---|---|
+| R2-1 | Task 2 was easy to do, but the store owner worried no one would pick the delivery up. The screens work; the fear is about the real world, not the prototype — a clickable demo cannot prove a driver will accept at dinner rush. This is CONCEPT.md risk #2 ("What happens when no driver accepts?") confirmed by a real user, not just a study question. | High | Task 2 / escalation | Open — decide before the build: what happens when nobody accepts? Candidates (not decided): auto-raise the pay after X minutes with no accept; alert the store to handle it by hand; a small on-call guaranteed pool. Only real drivers at real rush hour can prove the answer. |
