@@ -55,10 +55,10 @@ Spec: `BACKEND.md` (followed exactly; no fields invented, no decided rules chang
 ## Still pending — needs the user (console clicks)
 These two steps could NOT be done via API on this VM; they need a few clicks in the Firebase console. Nothing is faked — they are simply not done yet.
 
-### 1. Enable sign-in methods (Google + phone) — REQUIRED before any app sign-in works
+### 1. Enable sign-in methods (Google only for now — REQUIRED before any app sign-in works)
 - Open https://console.firebase.google.com/project/wasl-delivery-app/authentication/providers
-- **Google** → Enable → Save. (This auto-creates the OAuth client; the API route needs a client ID that only the console creates for this project.)
-- **Phone** → Enable → Save.
+- **Google** → Enable → Save. (This auto-creates the OAuth client; the API route needs a client ID that only the console creates for this project.) Google sign-in is free on Spark — no billing screen.
+- **Phone — DEFERRED (2026-11-06 ~23:07 EST):** the console asks to link a Cloud Billing account (Blaze, pay-as-you-go) when enabling Phone sign-in — the user hit exactly that screen. Do NOT link it; the user does not want to pay anything. Phone sign-in waits until/unless he approves Blaze. Google sign-in covers the pilot (stores, drivers, admin all sign in with Google).
 - Why it is pending: the Identity Platform config does not exist yet for this project — the API returns `CONFIGURATION_NOT_FOUND`, and `initializeAuth` (the API way to create it) refuses with `BILLING_NOT_ENABLED` because it is the paid Identity Platform upgrade path. The console's Auth setup creates the free Spark config instead. Attempted and documented: `initializeAuth` (400 BILLING_NOT_ENABLED), IdP config create (400, needs clientId), Auth user create (400 CONFIGURATION_NOT_FOUND).
 - After this is done, tell me and I will verify Google sign-in works and re-key the admin doc (see admin note).
 
