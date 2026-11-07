@@ -159,12 +159,12 @@ Method: Google UX Design Certificate — Test phase, following `UX_STUDY.md` §7
 - **D.** Turn card on for one store (the guard should stop you — card needs a payout account + fee agreement — and the store must never be left with no payment method).
 - **E.** Settle a late-order dispute: decide who pays and record the decision.
 
-## Score sheets — fill one per participant (results: NOTHING RECORDED YET)
+## Score sheets — fill one per participant (results: P1 Task 2 recorded 2026-11-06; the rest blank)
 ### P1 — Soufiane (store + admin) — session: ___ / ___ / 2026, ___ min
 | Task | Success (yes / no / with help) | Time | Taps / errors | Their words (exact) | Fix |
 |---|---|---|---|---|---|
 | 1. Create + assign to own driver | | | | | |
-| 2. Decline → marketplace cover | | | | | |
+| 2. Decline → marketplace cover | yes | — (to confirm) | — | "When I assign to a drivers one was busy and the other he declined so I got back up from the market place" | — |
 | 3. (driver) Pickup → delivered + photo | | | | | |
 | 4. (marketplace) Find + accept $6+ / <3 mi | | | | | |
 | 5. Live status + customer view | | | | | |
@@ -198,6 +198,6 @@ Method: Google UX Design Certificate — Test phase, following `UX_STUDY.md` §7
 ## Session log
 | Session | Participant | Date | Tasks run | Result |
 |---|---|---|---|---|
-| 1 | P1 Soufiane | 2026-11-06 | started — Task 1 handed over, awaiting his report | pending |
+| 1 | P1 Soufiane | 2026-11-06 | Task 2 run — own drivers busy / declined → marketplace backup worked | partial — time + ease rating still to confirm |
 | 2 | P2 (to name) | — | — | not scheduled |
 | 3 | P3 (to name) | — | — | not scheduled |

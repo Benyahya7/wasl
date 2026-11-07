@@ -51,7 +51,7 @@ Competitors to learn from: Metrobi, DoorDash Drive / Uber Direct, Circuit, GoSha
 ## Later (not MVP)
 - Scheduled / recurring deliveries, large / catering orders
 - (Multi-stop routes and batched jobs are already in the wireframes and high-fi — S7/D6/D7 — not "Later".)
-- Customer ordering — **decided 2026-11-06: v2, after the delivery system is built and tested.** Two parts: (a) intake — orders placed in the store's own apps (Mira's Coffee, Chinese Dragon) flow into Wasl as deliveries, no re-typing; (b) storefront inside Wasl — the customer browses the store's products, picks items, orders. Delivery core first; the backend is designed now with orders and deliveries as separate things so v2 plugs in without a rebuild.
+- Customer ordering — **decided 2026-11-06: v2, after the delivery system is built and tested.** Two parts: (a) intake — orders placed in the store's own apps (Mira's Coffee, Chinese Dragon) flow into Wasl as deliveries, no re-typing; (b) one Wasl customer app with multiple stores, like Uber Eats — the customer picks a store, browses its products, orders. Not one app per store. Delivery core first; the backend is designed now with orders and deliveries as separate things so v2 plugs in without a rebuild.
 - Auto-dispatch: app suggests the best driver by distance + rating
 - Insurance / damaged-package handling, promo / subscription plans for stores
 
