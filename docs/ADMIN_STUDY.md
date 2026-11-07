@@ -4,7 +4,7 @@ Method: Google UX Design Certificate process — Empathize, Define, Ideate, Prot
 Companion files: `UX_STUDY.md`, `IA.md`, `BACKEND.md`, `REVIEW.md`
 
 ## How to read this study — please don't skip
-- **This is a draft study, not finished research.** The Admin persona is Soufiane himself — the platform owner and the only admin at launch — built from his own decisions on 2026-11-06, not from interviews with other admins (there are none). Anything marked **TO TEST** must be checked before it is treated as fact.
+- **This is a draft study, not finished research.** The Admin persona is Soufiane himself — the platform owner and the only admin at launch — built from his own decisions on 2026-11-06, not from interviews with other admins (there are none). **Admin account (decided 2026-11-06): raiss95@gmail.com**, Google sign-in — the same account as his Hanimo admin and Firebase login. Anything marked **TO TEST** must be checked before it is treated as fact.
 - **Decided by Soufiane on 2026-11-06:** the admin approves stores and drivers; the admin controls cash or card per store; a store can submit its own drivers to the admin, and the admin decides to approve or not.
 - **Payment decision still open:** cash first with card switchable later (recommended) vs card now vs approval-only. The user has not picked one. This study is written so the payment switch works either way — cash on by default, card off until the admin turns it on.
 - **No real test has been done yet.** No admin has used an Admin prototype — there is no Admin prototype yet. The test plan in §8 is TO DO.
