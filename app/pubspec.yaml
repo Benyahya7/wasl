@@ -1,0 +1,49 @@
+name: wasl
+description: "Wasl — store delivery app for Boston + Morocco. Own drivers first, marketplace drivers as backup. Cash-first."
+publish_to: 'none'
+version: 1.0.21+22
+
+environment:
+  sdk: ^3.13.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^4.1.0
+  firebase_auth: ^6.0.0
+  cloud_firestore: ^6.0.0
+  google_sign_in: ^7.2.0
+  flutter_map: ^8.0.0
+  latlong2: ^0.9.0
+  image_picker: ^1.2.0
+  url_launcher: ^6.3.0
+  share_plus: ^11.0.0
+  http: ^1.3.0
+  google_fonts: ^6.2.1
+  geolocator: ^14.0.0
+  flutter_map_vector_tiles: ^2.11.0
+  agora_rtc_engine: ^6.6.4
+  record: ^7.1.2
+  audioplayers: ^6.8.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_native_splash: ^2.4.0
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo/
+    - assets/cloudinary.json
+    - assets/agora.json
+
+
+# Branded launch screen (the surprise): deep teal + the Wasl logo.
+flutter_native_splash:
+  color: "#0C4A4E"
+  image: assets/logo/wasl-icon-512.png
+  android_12:
+    color: "#0C4A4E"
+    image: assets/logo/wasl-icon-512.png

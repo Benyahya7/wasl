@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "716697285349",
+    "project_id": "wasl-delivery-app",
+    "storage_bucket": "wasl-delivery-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716697285349:android:6844a228fb181951c99a0c",
+        "android_client_info": {
+          "package_name": "com.wasl.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716697285349-q99juv15dl93sqknbbb22fqnfoc24k92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wasl.app",
+            "certificate_hash": "aa6961ffe8ba7ab13d0c9aa004dfa76162b70f75"
+          }
+        },
+        {
+          "client_id": "716697285349-u9uotvnve939g0037l0lq8783netjjfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBek4297z7mTlN5JkSbiZmVYPi2cGuBR0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716697285349-u9uotvnve939g0037l0lq8783netjjfu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
