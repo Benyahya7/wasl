@@ -1,0 +1,75 @@
+/* Wasl theme — extra styles theme.json doesn't cover.
+   American delivery-app language: black/white, pill buttons,
+   bold display type, soft cards. Wasl teal + amber as brand accents. */
+
+/* --- Header --- */
+.wasl-header { position: sticky; top: 0; z-index: 50; background: var(--wp--preset--color--canvas); }
+.wasl-header .wp-block-navigation a { font-weight: 600; color: var(--wp--preset--color--ink); text-decoration: none; }
+.wasl-header .wp-block-navigation a:hover { color: var(--wp--preset--color--teal); }
+
+/* --- Eyebrow labels --- */
+.wasl-eyebrow { margin-bottom: 0.75rem; }
+
+/* --- Pills --- */
+.wasl-pill-live { display: inline-flex; align-items: center; gap: 0.35rem; background: #dcfce7; color: #166534; font-weight: 600; border-radius: 999px; padding: 0.25rem 0.75rem; margin: 0; }
+.wasl-pill-amber { display: inline-block; background: var(--wp--preset--color--amber); color: var(--wp--preset--color--ink); font-weight: 700; border-radius: 999px; padding: 0.25rem 0.75rem; margin: 0; }
+
+/* --- Hero --- */
+.wasl-hero-proof p { color: var(--wp--preset--color--body); margin: 0; }
+.wasl-hero-proof p + p { border-left: 1px solid var(--wp--preset--color--line); padding-left: 1rem; }
+.wasl-track-card { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08); }
+.wasl-code-demo { font-family: var(--wp--preset--font-family--sora); font-weight: 800; letter-spacing: 0.25em; color: var(--wp--preset--color--teal); margin: 0.5rem 0 0; }
+.wasl-progress-bar { position: relative; height: 8px; background: var(--wp--preset--color--line); border-radius: 999px; overflow: hidden; margin: 0; }
+.wasl-progress-fill { display: block; height: 100%; background: var(--wp--preset--color--teal); border-radius: 999px; }
+
+/* --- Logos strip --- */
+.wasl-logo-name { font-family: var(--wp--preset--font-family--sora); font-weight: 700; color: var(--wp--preset--color--ink); margin: 0; }
+.wasl-logos { gap: 3rem !important; }
+
+/* --- Steps --- */
+.wasl-step-num { font-family: var(--wp--preset--font-family--sora); font-weight: 800; color: var(--wp--preset--color--amber); margin: 0 0 0.5rem; }
+.wasl-step { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.wasl-step:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08); }
+
+/* --- Check lists --- */
+.wasl-check-list { list-style: none; padding-left: 0; }
+.wasl-check-list li { padding-left: 1.75rem; position: relative; margin-bottom: 0.6rem; }
+.wasl-check-list li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 1.25rem; height: 1.25rem; border-radius: 999px; background: var(--wp--preset--color--teal); color: #fff; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.wasl-check-light li::before { background: var(--wp--preset--color--amber); color: var(--wp--preset--color--ink); }
+
+/* --- Route list (drivers) --- */
+.wasl-route-list { list-style: none; padding-left: 0; }
+.wasl-route-list li { padding: 0.6rem 0; border-bottom: 1px solid var(--wp--preset--color--line); }
+.wasl-route-list li:last-child { border-bottom: 0; }
+
+/* --- Pricing --- */
+.wasl-price { font-family: var(--wp--preset--font-family--sora); font-weight: 800; letter-spacing: -0.02em; margin: 0.5rem 0; }
+.wasl-price-featured { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); }
+
+/* --- Pickup-code demo (dark section) --- */
+.wasl-code-card { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); }
+.wasl-code-input-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.wasl-code-input { flex: 1 1 140px; background: #262626; border: 1px solid #404040; color: #fff; font-family: var(--wp--preset--font-family--sora); font-weight: 800; font-size: 1.75rem; letter-spacing: 0.5em; text-align: center; text-transform: uppercase; border-radius: 0.75rem; padding: 0.75rem 1rem; min-width: 0; }
+.wasl-code-input:focus { outline: 2px solid var(--wp--preset--color--amber); border-color: var(--wp--preset--color--amber); }
+.wasl-code-btn { background: var(--wp--preset--color--amber); color: var(--wp--preset--color--ink); font-weight: 700; border: 0; border-radius: 999px; padding: 0.75rem 1.5rem; cursor: pointer; font-size: 1rem; }
+.wasl-code-btn:hover { background: #ffc53d; }
+.wasl-code-msg { margin-top: 0.9rem; font-size: 0.875rem; color: #d4d4d4; }
+.wasl-code-msg.ok { color: #4ade80; font-weight: 600; }
+.wasl-code-msg.err { color: #f87171; font-weight: 600; }
+
+/* --- Footer --- */
+.wasl-footer a { color: #d4d4d4; text-decoration: none; }
+.wasl-footer a:hover { color: #fff; }
+.wasl-footer .wp-block-social-links a { color: #fff; }
+
+/* --- Buttons: American pill style --- */
+.wp-block-button__link { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.wp-block-button__link:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); }
+.wp-block-button.is-style-outline .wp-block-button__link { border: 2px solid var(--wp--preset--color--ink); color: var(--wp--preset--color--ink); background: transparent; }
+.wp-block-button.is-style-outline .wp-block-button__link:hover { background: var(--wp--preset--color--ink); color: #fff; }
+
+/* --- Mobile --- */
+@media (max-width: 781px) {
+  .wasl-hero-proof p + p { border-left: 0; padding-left: 0; }
+  .wasl-logos { gap: 1.25rem !important; }
+}
